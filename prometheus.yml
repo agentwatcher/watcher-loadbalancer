@@ -1,0 +1,52 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "load-balancer"
+    scrape_interval: 5s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["load-balancer:8000"]
+        labels:
+          service: "load-balancer"
+
+  - job_name: "api-services"
+    scrape_interval: 10s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["api-1:5000", "api-2:5000", "api-3:5000"]
+        labels:
+          service: "api"
+
+  - job_name: "auth-services"
+    scrape_interval: 10s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["auth-1:3001", "auth-2:3001"]
+        labels:
+          service: "auth"
+
+  - job_name: "analytics-services"
+    scrape_interval: 10s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["analytics:5002"]
+        labels:
+          service: "analytics"
+
+  - job_name: "storage-services"
+    scrape_interval: 10s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["storage-1:5003", "storage-2:5003"]
+        labels:
+          service: "storage"
+
+  - job_name: "websocket-services"
+    scrape_interval: 10s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["websocket:5004"]
+        labels:
+          service: "websocket"
